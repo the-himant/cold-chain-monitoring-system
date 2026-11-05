@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | ColdChain</title>
+
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body class="login-page">
+
+    <main class="login-layout">
+
+        <!-- Left Side Branding -->
+        <section class="login-brand-panel">
+
+            <div class="logo"><img src="../logo.png" alt="Error Boys Logo"><span>coldchain</span></div>
+
+            <div class="login-intro">
+
+                <span class="login-eyebrow">
+                    ERROR BOYS COLD CHAIN MONITORING
+                </span>
+
+                <h1>
+                    Keep every shipment<br>
+                    within its safe range.
+                </h1>
+
+                <p>
+                    Monitor devices, review temperature alerts,
+                    and keep your cold chain operations on track.
+                </p>
+
+            </div>
+
+            <div class="login-panel-footer">
+                <span class="live-dot"></span>
+                Monitoring made simple
+            </div>
+
+        </section>
+
+
+        <!-- Right Side Login Form -->
+        <section class="login-form-panel">
+
+            <form class="login-card" id="loginForm">
+
+                <div class="logo"><img src="../logo.png" alt="Error Boys Logo"><span>coldchain</span></div>
+
+                <span class="login-eyebrow blue-text">
+                    ADMINISTRATOR ACCESS
+                </span>
+
+                <h2>Welcome back</h2>
+
+                <p class="login-subtitle">
+                    Sign in to access your monitoring dashboard.
+                </p>
+
+
+                <!-- Email -->
+                <label for="email">Email Address</label>
+
+                <input type="email" id="email" name="email" placeholder="admin@coldchain.com" autocomplete="username"
+                    required>
+
+
+                <!-- Password -->
+                <label for="password">Password</label>
+
+                <div class="password-field">
+
+                    <input type="password" id="password" name="password" placeholder="Enter your password"
+                        autocomplete="current-password" required>
+
+                    <button type="button" id="togglePassword" class="show-password">
+                        Show
+                    </button>
+
+                </div>
+
+
+                <!-- Login Options -->
+                <div class="login-options">
+
+                    <label class="remember-label">
+                        <input type="checkbox" id="rememberMe">
+                        Remember me
+                    </label>
+
+                    <span>Admin Account</span>
+
+                </div>
+
+
+                <!-- Login Button -->
+                <button type="submit" class="login-submit">
+                    Sign in to dashboard
+                    <span>→</span>
+                </button>
+
+
+                <!-- Error Message -->
+                <p class="login-error hidden" id="loginError" role="alert">
+                    Incorrect email or password. Please try again.
+                </p>
+
+
+                <!-- Demo Credentials -->
+                <div class="demo-credentials">
+
+                    <strong>Demo Login Credentials</strong>
+
+                    <span>
+                        Email: admin@coldchain.com
+                    </span>
+
+                    <span>
+                        Password: Admin@123
+                    </span>
+
+                </div>
+
+
+                <p class="login-disclaimer">
+                    Demo interface only. Secure server-side
+                    authentication is required for production.
+                </p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+    <script src="login.js"></script>
+
+</body>
+
+</html>

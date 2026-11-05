@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ColdChain Monitoring System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Icon library: every icon in the page is drawn from these symbols -->
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <symbol id="i-grid" viewBox="0 0 24 24">
+        <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" />
+      </symbol>
+      <symbol id="i-thermo" viewBox="0 0 24 24">
+        <path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z" />
+      </symbol>
+      <symbol id="i-box" viewBox="0 0 24 24">
+        <path d="M21 8l-9-5-9 5v8l9 5 9-5zM3 8l9 5 9-5M12 13v8" />
+      </symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24">
+        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" />
+      </symbol>
+      <symbol id="i-truck" viewBox="0 0 24 24">
+        <path d="M1 4h13v12H1zM14 8h5l4 4v4h-9z" />
+        <circle cx="6" cy="19" r="2" />
+        <circle cx="18" cy="19" r="2" />
+      </symbol>
+      <symbol id="i-gear" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9L7 7M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1" />
+      </symbol>
+      <symbol id="i-search" viewBox="0 0 24 24">
+        <circle cx="11" cy="11" r="7" />
+        <path d="M21 21l-4.3-4.3" />
+      </symbol>
+      <symbol id="i-refresh" viewBox="0 0 24 24">
+        <path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5" />
+      </symbol>
+      <symbol id="i-download" viewBox="0 0 24 24">
+        <path d="M12 3v12M7 10l5 5 5-5M4 21h16" />
+      </symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24">
+        <path d="M3 6h18M3 12h18M3 18h18" />
+      </symbol>
+      <symbol id="i-warn" viewBox="0 0 24 24">
+        <path d="M12 3l10 18H2zM12 10v5M12 18v.01" />
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path d="M5 12l5 5 9-10" />
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="app" id="app">
+    <!-- Sidebar navigation -->
+    <aside class="sidebar">
+      <div class="logo"><img src="../logo.png" alt="Error Boys Logo"><span>coldchain</span></div>
+      <nav id="nav">
+        <button class="nav-btn active" data-view="dashboard"><svg class="i">
+            <use href="#i-grid" />
+          </svg><span>Dashboard</span></button>
+        <button class="nav-btn" data-view="temperature"><svg class="i">
+            <use href="#i-thermo" />
+          </svg><span>Temperature</span></button>
+        <button class="nav-btn" data-view="shipments"><svg class="i">
+            <use href="#i-box" />
+          </svg><span>Shipments</span></button>
+        <button class="nav-btn" data-view="alerts"><svg class="i">
+            <use href="#i-bell" />
+          </svg><span>Alerts</span></button>
+        <button class="nav-btn" data-view="vehicles"><svg class="i">
+            <use href="#i-truck" />
+          </svg><span>Vehicles</span></button>
+      </nav>
+      <button class="nav-btn" id="settingsBtn"><svg class="i">
+          <use href="#i-gear" />
+        </svg><span>Settings</span></button>
+    </aside>
+
+    <div class="main">
+      <!-- Top bar: search, date filter, refresh, export, notifications -->
+      <header class="topbar">
+        <button class="icon-btn" id="menuBtn" title="Collapse or expand sidebar"><svg class="i">
+            <use href="#i-menu" />
+          </svg></button>
+        <label class="search"><svg class="i">
+            <use href="#i-search" />
+          </svg><input id="searchInput" placeholder="Search shipments, products, vehicles..."></label>
+        <select id="dateFilter" title="Date filter">
+          <option value="0">Today</option>
+          <option value="7">Last 7 days</option>
+          <option value="30" selected>Last 30 days</option>
+        </select>
+        <button class="btn" id="refreshBtn"><svg class="i">
+            <use href="#i-refresh" />
+          </svg><span>Refresh</span></button>
+        <button class="btn primary" id="exportBtn"><svg class="i">
+            <use href="#i-download" />
+          </svg><span>Export Report</span></button>
+        <div class="notif-wrap">
+          <button class="icon-btn" id="bellBtn" title="Notifications"><svg class="i">
+              <use href="#i-bell" />
+            </svg><em id="bellCount">0</em></button>
+          <div class="notif" id="notifPanel"></div>
+        </div>
+        <div class="user">
+          <span id="profileName">Errors Boys</span>
+          <i id="profileInitial">E</i>
+          <button class="btn" id="updateProfileBtn">Update Profile</button>
+        </div>
+      </header>
+
+      <!-- Update Profile Dialog -->
+      <dialog id="profileDialog" class="profile-dialog">
+
+        <div class="profile-header">
+          <div>
+            <span class="profile-label">ACCOUNT SETTINGS</span>
+            <h2>Update Profile</h2>
+            <p>Manage your personal information</p>
+          </div>
+
+          <button type="button" class="profile-close" id="closeProfile">
+            &times;
+          </button>
+        </div>
+
+        <form id="profileForm">
+
+          <div class="profile-avatar" id="profileAvatar">M</div>
+
+          <div class="profile-fields">
+
+            <div class="profile-field">
+              <label for="profileFullName">Full Name</label>
+              <input type="text" id="profileFullName" placeholder="Enter your name" value="Mohamed" required>
+            </div>
+
+            <div class="profile-field">
+              <label for="profileEmail">Email Address</label>
+              <input type="email" id="profileEmail" placeholder="Enter your email" value="admin@coldchain.com" required>
+            </div>
+
+          </div>
+
+          <div class="profile-footer">
+            <button type="button" class="profile-cancel" id="cancelProfile">
+              Cancel
+            </button>
+
+            <button type="submit" class="profile-save">
+              Save Changes
+            </button>
+          </div>
+
+        </form>
+      </dialog>
+
+      <main class="content" id="content">
+        <!-- A. Dashboard overview -->
+        <section class="view active" id="dashboard">
+          <h1>Dashboard</h1>
+          <div class="stats">
+            <div class="card stat red">
+              <div class="ico"><svg class="i">
+                  <use href="#i-warn" />
+                </svg></div>
+              <div><strong id="st-alert">0</strong><small>Temperature Alerts</small></div>
+            </div>
+            <div class="card stat blue">
+              <div class="ico"><svg class="i">
+                  <use href="#i-box" />
+                </svg></div>
+              <div><strong id="st-ship">0</strong><small>Active Shipments</small></div>
+            </div>
+            <div class="card stat orange">
+              <div class="ico"><svg class="i">
+                  <use href="#i-truck" />
+                </svg></div>
+              <div><strong id="st-veh">0</strong><small>Vehicles In Transit</small></div>
+            </div>
+            <div class="card stat teal">
+              <div class="ico"><svg class="i">
+                  <use href="#i-check" />
+                </svg></div>
+              <div><strong id="st-done">0</strong><small>Successful Deliveries</small></div>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="card">
+              <h3>Recently viewed shipments</h3>
+              <ul class="recent" id="recentList"></ul>
+            </div>
+            <div class="card">
+              <h3>Sensors that need calibration</h3>
+              <div class="bar">
+                <div style="width:50%;background:var(--blue)"></div>
+                <div style="width:22%;background:var(--teal)"></div>
+                <div style="width:12%;background:var(--orange)"></div>
+                <div style="width:6%;background:var(--red)"></div>
+              </div>
+              <div class="legend"><span><i style="background:var(--blue)"></i>In 6+ months</span><span><i
+                    style="background:var(--teal)"></i>In 3 months</span><span><i
+                    style="background:var(--orange)"></i>In 1 month</span><span><i
+                    style="background:var(--red)"></i>Overdue</span></div>
+            </div>
+          </div>
+          <div class="grid2">
+            <div class="card">
+              <h3>Shipments with the most excursions</h3>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Shipment</th>
+                      <th>Excursions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="excBody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="card">
+              <h3>Excursions by product type</h3>
+              <div class="donut-wrap">
+                <div class="donut" id="donut"></div>
+                <div class="legend" id="donutLegend" style="flex-direction:column"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- B. Temperature monitoring -->
+        <section class="view" id="temperature">
+          <h1>Temperature Monitoring</h1>
+          <p class="note">Green = normal, yellow = warning (close to the limit), red = critical (outside the allowed
+            range).</p>
+          <div class="tgrid" id="tempCards"></div>
+          <div class="card">
+            <div class="row">
+              <h3>Temperature trend (last 12 readings)</h3><select id="chartSelect"></select>
+            </div><canvas id="chart"></canvas>
+          </div>
+        </section>
+
+        <!-- C. Shipment tracking -->
+        <section class="view" id="shipments">
+          <h1>Shipment Tracking</h1>
+          <div class="tools" id="filters">
+            <button class="btn active" data-filter="All">All</button><button class="btn" data-filter="In Transit">In
+              Transit</button><button class="btn" data-filter="Delivered">Delivered</button><button class="btn"
+              data-filter="Delayed">Delayed</button>
+          </div>
+          <div class="card table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Product</th>
+                  <th>Vehicle</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Temp</th>
+                  <th>Status</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="shipBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- D. Alerts -->
+        <section class="view" id="alerts">
+          <h1>Alerts and Notifications</h1>
+          <p class="note">Resolving an alert records the corrective action and returns the shipment to its safe range.
+          </p>
+          <div id="alertList"></div>
+        </section>
+
+        <!-- E. Vehicles -->
+        <section class="view" id="vehicles">
+          <h1>Vehicle Monitoring</h1>
+          <p class="note">Route progress is simulated and not tracked by real GPS.</p>
+          <div class="vgrid" id="vehicleList"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Modal (shipment details and settings) and toast message -->
+  <div class="modal" id="modal">
+    <div class="modal-box" id="modalBox"></div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="script.js"></script>
+</body>
+
+</html>
