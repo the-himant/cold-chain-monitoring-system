@@ -188,9 +188,9 @@ Developed as a collaborative academic project.
 
 | Member | Contribution |
 |---|---|
-| Student 1 | HTML – Website Structure |
-| Student 2 | CSS – User Interface and Design |
-| Student 3 | JavaScript – Functionality and Interactivity |
+| the-himant | HTML – Website Structure |
+| nandagopanv30 | CSS – User Interface and Design |
+| adith-fr | JavaScript – Functionality and Interactivity |
 
 ---
 
