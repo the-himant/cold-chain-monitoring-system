@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ❄️ Cold Chain Monitoring System
 
 ### A Smart Dashboard for Monitoring Temperature, Shipments, Alerts, and Vehicles
@@ -213,3 +214,7 @@ This project is developed for educational purposes. You may use and modify the s
   Cold Chain Monitoring System<br>
   <em>Monitor. Manage. Maintain.</em>
 </p>
+=======
+# cold-chain-monitoring-system
+Cold Chain Monitoring System – An interactive web dashboard for temperature monitoring, shipment management, alerts, and vehicle information, built with HTML, CSS, and JavaScript.
+>>>>>>> 598e86763843fd08c11abb48909d58cecaa47ecb
